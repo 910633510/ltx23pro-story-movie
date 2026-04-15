@@ -22,6 +22,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 
 - LTX-2.3 is officially 4K-capable, but true 4K inference with the full 22B model is much heavier than the Wan pipeline.
 - On UConn A100 40 GB nodes, the safest first run is not 4K. Start at `1920x1088` or `1536x1024`, verify the pipeline works, then try a higher-resolution profile.
+- Do not use the `fp8-cast` quantization preset on A100 nodes. That path is meant for newer architectures and will fail on the A100s currently common in `general-gpu`.
 - The Gemma repo is gated on Hugging Face. You must both:
   - accept the Gemma terms on Hugging Face
   - provide a token on HPC, for example `export HF_TOKEN=...`
@@ -98,7 +99,7 @@ find ~/ltx23pro-story-movie/outputs/<jobid> -maxdepth 1 -type f | sort
   "default_num_inference_steps": 30,
   "default_seed": 5000,
   "pipeline_module": "ltx_pipelines.ti2vid_two_stages",
-  "quantization": "fp8-cast",
+  "quantization": null,
   "streaming_prefetch_count": 2,
   "max_batch_size": 1,
   "enhance_prompt": true,
@@ -136,9 +137,9 @@ Recommended first submit:
 - height: `1088`
 - frames: `121`
 - steps: `20` to `30`
-- quantization: `fp8-cast`
+- quantization: `null` on A100 nodes
 
-If that works, then try heavier settings. For a true 4K attempt, set:
+If that works, then try heavier settings. If you later run on Hopper-class GPUs, you can experiment with `fp8-cast`. For a true 4K attempt, set:
 
 - width: `3840`
 - height: `2176`

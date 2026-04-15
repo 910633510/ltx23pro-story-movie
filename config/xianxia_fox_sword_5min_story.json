@@ -7,7 +7,7 @@
   "default_frame_rate": 24,
   "default_num_inference_steps": 24,
   "default_seed": 15000,
-  "quantization": "fp8-cast",
+  "quantization": null,
   "streaming_prefetch_count": 2,
   "max_batch_size": 1,
   "enhance_prompt": true,
@@ -166,4 +166,3 @@
     }
   ]
 }
-
