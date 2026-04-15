@@ -1,0 +1,9 @@
+.venv/
+vendor/
+models/
+outputs/
+logs/
+__pycache__/
+*.pyc
+*.bak
+

@@ -1,0 +1,34 @@
+{
+  "movie_title": "LTX-2.3 Story Example",
+  "pipeline_module": "ltx_pipelines.ti2vid_two_stages",
+  "default_width": 1920,
+  "default_height": 1088,
+  "default_num_frames": 121,
+  "default_frame_rate": 24,
+  "default_num_inference_steps": 24,
+  "default_seed": 7000,
+  "quantization": "fp8-cast",
+  "streaming_prefetch_count": 2,
+  "max_batch_size": 1,
+  "enhance_prompt": true,
+  "chain_strength": 0.72,
+  "negative_prompt": "blurry, low detail, distorted anatomy, bad hands, extra limbs, overexposed highlights, muddy shadows, text artifacts, unstable faces, broken motion, warped perspective, flicker, AI artifacts",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "prompt": "At blue hour, a lone traveler in a weathered indigo coat walks through an ancient harbor wrapped in sea fog, carrying a warm brass lantern that reflects on wet stone, distant ships creak in the mist, subtle wind pulls at the fabric, cinematic dolly shot, realistic atmosphere, grounded texture, 35mm film feel.",
+      "continue_from_previous": false
+    },
+    {
+      "id": "scene-02",
+      "prompt": "Continue the scene as the traveler reaches the edge of the pier and looks toward a towering ghostly vessel emerging from the fog, lantern glow catching on rain beads and dark wood, gulls circle above, camera slowly pushes in from behind, moody realism, precise environmental detail, restrained but epic tension.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-03",
+      "prompt": "Continue the scene as the vessel's silhouette becomes clear and the traveler raises the lantern, revealing carved figures, torn sails, and a mysterious woman standing motionless on the deck, ocean spray and lantern light mixing with pale moonlight, elegant cinematic staging, suspenseful but believable motion.",
+      "continue_from_previous": true
+    }
+  ]
+}
+
