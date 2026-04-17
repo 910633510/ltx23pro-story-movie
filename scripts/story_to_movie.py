@@ -176,6 +176,13 @@ def concat_videos(clips: list[Path], output_path: Path) -> bool:
     return True
 
 
+def build_prompt(story: dict[str, Any], scene: dict[str, Any]) -> str:
+    prompt_prefix = str(scene.get("prompt_prefix", story.get("prompt_prefix", ""))).strip()
+    prompt_suffix = str(scene.get("prompt_suffix", story.get("prompt_suffix", ""))).strip()
+    prompt_parts = [part for part in (prompt_prefix, scene["prompt"], prompt_suffix) if part]
+    return " ".join(prompt_parts)
+
+
 def build_command(
     args: argparse.Namespace,
     story: dict[str, Any],
@@ -196,6 +203,7 @@ def build_command(
     negative_prompt = scene.get("negative_prompt", story.get("negative_prompt"))
     streaming_prefetch_count = scene.get("streaming_prefetch_count", story.get("streaming_prefetch_count"))
     max_batch_size = int(scene.get("max_batch_size", story.get("max_batch_size", 1)))
+    full_prompt = build_prompt(story, scene)
 
     cmd = [
         str(args.ltx_python),
@@ -211,7 +219,7 @@ def build_command(
         "--gemma-root",
         str(args.gemma_root),
         "--prompt",
-        scene["prompt"],
+        full_prompt,
         "--output-path",
         str(output_video),
         "--seed",
@@ -294,6 +302,7 @@ def main() -> int:
 
         log_progress(f"Starting scene {index}/{total_scenes}: {scene_id}")
         scene_started_at = time.monotonic()
+        full_prompt = build_prompt(story, scene)
         cmd = build_command(args, story, scene, index, output_video, conditioning_image)
         log_progress("Running: " + " ".join(cmd))
         subprocess.run(cmd, cwd=args.ltx_repo, check=True)
@@ -316,6 +325,7 @@ def main() -> int:
                 "scene_id": scene_id,
                 "output": str(output_video.resolve()),
                 "prompt": scene["prompt"],
+                "full_prompt": full_prompt,
                 "duration_seconds": scene_elapsed,
                 "conditioning_image": str(conditioning_image.resolve()) if conditioning_image else None,
             }
@@ -336,4 +346,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

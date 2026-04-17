@@ -31,6 +31,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 
 - `config/story.example.json`: starter story config
 - `config/xianxia_fox_sword_5min_story.json`: long xianxia sample
+- `config/xianxia_fox_sword_photoreal_5min_story.json`: long xianxia sample with stronger photoreal identity locking
 - `storyboards/xianxia_fox_sword_5min_script.md`: readable version of the same story
 - `scripts/download_ltx23_assets.py`: downloads the full model bundle
 - `scripts/bootstrap_uconn_hpc.sh`: sets up env + models + optional Slurm submission
@@ -103,6 +104,8 @@ find ~/ltx23pro-story-movie/outputs/<jobid> -maxdepth 1 -type f | sort
   "streaming_prefetch_count": 2,
   "max_batch_size": 1,
   "enhance_prompt": true,
+  "prompt_prefix": "optional global style and identity lock text",
+  "prompt_suffix": "optional global style reminder",
   "chain_strength": 0.75,
   "negative_prompt": "optional negative prompt",
   "scenes": [
@@ -125,6 +128,8 @@ Useful per-scene overrides:
 - `frame_rate`
 - `continue_from_previous`
 - `chain_strength`
+- `prompt_prefix`
+- `prompt_suffix`
 - `start_image`
 - `start_image_strength`
 - `enhance_prompt`

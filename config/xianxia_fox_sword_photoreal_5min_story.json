@@ -1,0 +1,170 @@
+{
+  "movie_title": "Xianxia Sword Immortal and Nine-Tailed Fox Photoreal Five Minute LTX Cut",
+  "pipeline_module": "ltx_pipelines.ti2vid_two_stages",
+  "default_width": 1920,
+  "default_height": 1088,
+  "default_num_frames": 121,
+  "default_frame_rate": 24,
+  "default_num_inference_steps": 24,
+  "default_seed": 16000,
+  "quantization": null,
+  "streaming_prefetch_count": 2,
+  "max_batch_size": 1,
+  "enhance_prompt": false,
+  "chain_strength": 0.84,
+  "prompt_prefix": "Photoreal live-action Chinese xianxia feature film, cinematic realism, natural skin texture, realistic human faces, realistic eyes, realistic hair strands, physically plausible cloth, grounded lighting, ultra-detailed but not illustrated. Keep the same two lead characters in every shot: the male lead is a young Chinese sword immortal with a sharp elegant face, straight black hair, pale skin, calm severe expression, flowing white robes with silver embroidery, a weathered dark sword case on his back, blue-white spiritual aura, realistic human proportions; the female lead is a beautiful Chinese nine-tailed fox spirit with one consistent face across all scenes, refined oval face, luminous amber eyes, long dark hair, soft fox ears, red-and-white silk robes, nine glowing fox tails, graceful but dangerous presence, realistic human skin and facial structure, not anime, not cel-shaded, not painterly, not stylized illustration. Preserve continuity from the previous scene and keep the same identities, costume design, facial structure, and overall live-action visual language.",
+  "prompt_suffix": "Wide-screen historical fantasy cinematography, coherent subject identity, stable realism, no style drift, no anime rendering, no cartoon look, no illustration look.",
+  "negative_prompt": "anime, animated, cel shading, cartoon, illustration, painting, concept art, CGI toy look, doll face, plastic skin, waxy skin, over-smoothed skin, stylized eyes, oversized eyes, deformed hands, malformed anatomy, extra limbs, duplicate person, duplicate tails, face drift, identity drift, costume drift, soft blurry detail, low detail, muddy textures, flicker, warped architecture, floating objects, text, logo, watermark, frame distortion, oversaturated fantasy art style",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "prompt": "At dawn above a sea of clouds, vast ancient Chinese cultivation mountains rise like blades through luminous mist, suspended immortal palaces and bridges hang between peaks, spiritual energy streams through the sky, sunrise paints gold across stone and cloud, epic wide cinematic pullback, majestic xianxia atmosphere.",
+      "continue_from_previous": false
+    },
+    {
+      "id": "scene-02",
+      "prompt": "Continue the scene as the young sword immortal stands alone on a cliff edge in the same white robes and sword case, black hair moving in the high wind, pale blue spiritual aura gathering around him, medium hero shot with subtle camera drift.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-03",
+      "prompt": "Continue the scene as an elder manifests a glowing spiritual decree before the sword immortal, gold runes circling in the air, announcing the awakening of the forbidden Taixu secret realm, robe sleeves and talismans moving in the wind, solemn sect ceremony.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-04",
+      "prompt": "Continue the scene as the sword immortal launches into the night on a flying sword through moonlit storm clouds, lightning blooming deep in the sky, robes and hair streaming behind him, camera tracking alongside at high speed, thunder-lit xianxia grandeur.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-05",
+      "prompt": "Continue the scene in a moonlit ancient forest where fox fire glows between old trees, broken stone lanterns, and roots wrapped around ruins, mist drifts low across the ground, a red-and-white figure flashes through branches, quiet danger and beauty.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-06",
+      "prompt": "Continue the scene as the same nine-tailed fox spirit woman appears beside a still moonlit pool, elegant red-and-white robes layered like silk flame, luminous amber-gold eyes, nine flowing tails glowing in the mist, close cinematic reveal with a realistic human face and stable identity.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-07",
+      "prompt": "Continue the scene as the fox spirit lifts her gaze and gives a faint unreadable smile, moonlight catching her face, tails moving with controlled softness like firelit silk, subtle push-in on the same face and same styling.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-08",
+      "prompt": "Continue the scene as the sword immortal lands beside the pool and draws his blade halfway, cold spiritual pressure colliding with the fox spirit's妖气, ripples race across black water, dead leaves lift into the air around them, tense standoff framed in widescreen.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-09",
+      "prompt": "Continue the scene as the first clash erupts, sword light slices through moonbeams while fox fire tears across the mist, ancient trees shake from the impact, water and leaves swirl in the shockwave, elegant wuxia timing with grounded live-action motion.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-10",
+      "prompt": "Continue the scene as the nine-tailed fox spirit bursts into red light and circles behind him, multiple glowing tails striking from different angles while the sword immortal summons a ring of flying swords, dynamic duel choreography, layered foreground and background motion.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-11",
+      "prompt": "Continue the scene as sword energy and fox flame collide above the moonlit pool, exploding water high into the air, blue spiritual sparks and red foxfire scattering through silver night, both fighters moving with controlled superhuman grace.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-12",
+      "prompt": "Continue the scene as both suddenly notice ancient array lines illuminating beneath the pool, cracked seals glowing gold and black, the earth trembling under their feet, broken runes rising from the water, atmosphere shifting from duel to catastrophe.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-13",
+      "prompt": "Continue the scene as black energy erupts and a secret heavenly realm opens, a shattered celestial palace rising from the void with floating stairs, hanging bridges, and ruined halls, immense divine architecture emerging through cloud and darkness.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-14",
+      "prompt": "Continue the scene as the fox spirit and sword immortal leap into the opening one after another, each refusing to let the other reach the sacred core first, dramatic descent into radiant ancient space, wind and debris swirling around them.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-15",
+      "prompt": "Continue the scene inside the secret realm, revealing an upside-down celestial palace with broken jade stairs and rivers of starlight suspended in the air, colossal immortal architecture shattered yet majestic, surreal spatial depth.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-16",
+      "prompt": "Continue the scene as the sword immortal walks through a ruined corridor lined with stone warrior statues, and the statues awaken in cold blue sword formations, dust falling from their armor, ancient mechanisms grinding to life.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-17",
+      "prompt": "Continue the scene as the same fox spirit crosses a ruined flower terrace filled with illusion mist, her nine tails sweeping away enchantments while fractured memories flicker in the air around her, melancholy beauty mixed with lethal magic.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-18",
+      "prompt": "Continue the scene as the two meet again before an ancient altar, only for giant guardian puppets to awaken around them, forcing a temporary alliance, sword aura and foxfire standing side by side against overwhelming enemies.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-19",
+      "prompt": "Continue the scene as the sword immortal's flying swords form a defensive array in front while the fox spirit's tails and illusion fire seal the rear, the two beginning to move with tactical harmony, layered cooperative battle choreography.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-20",
+      "prompt": "Continue the scene as they shatter the guardian cores and reveal the Taixu spiritual core at the altar center, glowing with ancient cosmic energy, but its release also awakens a fallen immortal remnant sealed in darkness, the room filling with black-gold pressure.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-21",
+      "prompt": "Continue the scene as a fallen immortal remnant forms in the air wearing broken celestial armor, surrounded by black-gold energy and shattered sword sigils, declaring he will restart an ancient slaughter array to erase both immortals and demons.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-22",
+      "prompt": "Continue the scene as the fallen immortal unleashes terrifying heavenly thunder sword intent, blasting the young sword immortal backward across the hall, jade tiles exploding beneath him, violent blue lightning and crushing divine pressure slamming through the ruined palace.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-23",
+      "prompt": "Continue the scene as the fox spirit reveals a massive nine-tailed demon silhouette behind her and shields him from the next wave, red-gold eyes blazing, tails spread like a celestial fan through the storm of light, breathtaking beauty and fearsome power balanced in one heroic moment.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-24",
+      "prompt": "Continue the scene as the fallen immortal tries to divide them, mocking the impossibility of coexistence between immortal and demon while dark runes and broken heavenly chains whirl around the battlefield, emotional pressure rising inside a collapsing cosmic chamber.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-25",
+      "prompt": "Continue the scene as the sword immortal lowers his guard and turns slightly, giving his back to the fox spirit in a clear act of trust, moonlit ruins and drifting debris behind them, stillness inside chaos, a restrained emotional turning point before the final attack.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-26",
+      "prompt": "Continue the scene as the fox spirit smiles and accepts, her nine tails coiling around his sword light to open a path toward the enemy, red foxfire and pale blue sword aura weaving together into one elegant force, alliance fully formed.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-27",
+      "prompt": "Continue the scene as the sword immortal unleashes his ultimate sword technique and ten thousand swords rise into a dragon of light while the fox spirit ignites all nine tails into a vast celestial firestorm, climactic xianxia battle at maximum spectacle.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-28",
+      "prompt": "Continue the scene as the sword dragon and foxfire merge into one devastating strike, shattering the fallen immortal and the slaughter array core, the celestial palace collapsing in slow motion around them, storms of jade, sparks, and starlight filling the air.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-29",
+      "prompt": "Continue the scene as the fox spirit falls through a collapsing void after being wounded, and the sword immortal dives after her on his flying sword, catching her in his arms amid fragments of stars and broken palace stone, emotional rescue beat inside cosmic destruction.",
+      "continue_from_previous": true
+    },
+    {
+      "id": "scene-30",
+      "prompt": "Continue the scene as dawn rises over a lonely snow-dusted peak, the sword immortal and the beautiful nine-tailed fox spirit standing side by side in silence, tails glowing softly in the morning wind, ancient mountains calm again, unresolved destiny and romantic tension held in a final wide cinematic pullback.",
+      "continue_from_previous": true
+    }
+  ]
+}
