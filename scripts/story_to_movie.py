@@ -183,6 +183,12 @@ def build_prompt(story: dict[str, Any], scene: dict[str, Any]) -> str:
     return " ".join(prompt_parts)
 
 
+def resolve_image_path(value: str | None) -> Path | None:
+    if not value:
+        return None
+    return Path(value).expanduser().resolve()
+
+
 def build_command(
     args: argparse.Namespace,
     story: dict[str, Any],
@@ -253,10 +259,20 @@ def build_command(
         chain_strength = float(scene.get("chain_strength", story.get("chain_strength", 0.75)))
         cmd.extend(["--image", str(conditioning_image), "0", str(chain_strength)])
 
-    start_image = scene.get("start_image")
-    if start_image:
-        start_image_strength = float(scene.get("start_image_strength", 0.95))
-        cmd.extend(["--image", str(Path(start_image).expanduser().resolve()), "0", str(start_image_strength)])
+    reference_image = resolve_image_path(scene.get("reference_image", story.get("reference_image")))
+    if reference_image is not None:
+        reference_image_strength = float(
+            scene.get(
+                "reference_image_strength",
+                story.get("reference_image_strength", scene.get("start_image_strength", story.get("start_image_strength", 0.95))),
+            )
+        )
+        cmd.extend(["--image", str(reference_image), "0", str(reference_image_strength)])
+
+    start_image = resolve_image_path(scene.get("start_image", story.get("start_image")))
+    if start_image is not None:
+        start_image_strength = float(scene.get("start_image_strength", story.get("start_image_strength", 0.95)))
+        cmd.extend(["--image", str(start_image), "0", str(start_image_strength)])
 
     return cmd
 
@@ -328,6 +344,12 @@ def main() -> int:
                 "full_prompt": full_prompt,
                 "duration_seconds": scene_elapsed,
                 "conditioning_image": str(conditioning_image.resolve()) if conditioning_image else None,
+                "reference_image": str(resolve_image_path(scene.get("reference_image", story.get("reference_image"))))
+                if scene.get("reference_image", story.get("reference_image"))
+                else None,
+                "start_image": str(resolve_image_path(scene.get("start_image", story.get("start_image"))))
+                if scene.get("start_image", story.get("start_image"))
+                else None,
             }
         )
 

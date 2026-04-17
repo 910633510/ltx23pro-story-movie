@@ -6,4 +6,7 @@ logs/
 __pycache__/
 *.pyc
 *.bak
-
+refs/*.png
+refs/*.jpg
+refs/*.jpeg
+refs/*.webp
