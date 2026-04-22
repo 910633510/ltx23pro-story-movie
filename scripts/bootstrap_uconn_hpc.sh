@@ -79,15 +79,12 @@ EOF
   exit 1
 fi
 
-if [[ -n "$PI_ACCOUNT" ]]; then
-  sed -i.bak "s/^#SBATCH --account=PINetidHere/#SBATCH --account=$PI_ACCOUNT/" "$SLURM_FILE"
-else
-  sed -i.bak '/^#SBATCH --account=PINetidHere/d' "$SLURM_FILE"
-fi
-rm -f "$SLURM_FILE.bak"
-
 if $SUBMIT_JOB; then
-  STORY_JSON="$STORY_JSON" sbatch "$SLURM_FILE"
+  sbatch_args=()
+  if [[ -n "$PI_ACCOUNT" ]]; then
+    sbatch_args+=(--account "$PI_ACCOUNT")
+  fi
+  STORY_JSON="$STORY_JSON" sbatch "${sbatch_args[@]}" "$SLURM_FILE"
 fi
 
 echo "Bootstrap complete."

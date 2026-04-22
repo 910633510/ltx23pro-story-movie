@@ -10,7 +10,6 @@
 #SBATCH --mem=192G
 #SBATCH --gres=gpu:1
 #SBATCH --time=12:00:00
-#SBATCH --account=PINetidHere
 
 set -euo pipefail
 

@@ -64,6 +64,12 @@ cd ~/ltx23pro-story-movie
 PI_ACCOUNT=YOUR_PI_ACCOUNT HF_TOKEN=YOUR_HF_TOKEN ./scripts/bootstrap_uconn_hpc.sh --submit
 ```
 
+For direct Slurm submission with a PI account, pass the account at submit time instead of editing the Slurm file:
+
+```bash
+STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_sword_fairy_photoreal_ref_5min_story.json" sbatch --account=YOUR_PI_ACCOUNT slurm/run_story_movie_uconn.slurm
+```
+
 The bootstrap script will:
 
 1. install Miniconda if needed
