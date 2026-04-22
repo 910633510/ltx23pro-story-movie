@@ -118,6 +118,7 @@ find ~/ltx23pro-story-movie/outputs/<jobid> -maxdepth 1 -type f | sort
   "prompt_prefix": "optional global style and identity lock text",
   "prompt_suffix": "optional global style reminder",
   "reference_image": "~/ltx23pro-story-movie/refs/xianxia_duo_reference.png",
+  "reference_image_mode": "first_scene",
   "reference_image_strength": 0.92,
   "chain_strength": 0.75,
   "negative_prompt": "optional negative prompt",
@@ -144,6 +145,7 @@ Useful per-scene overrides:
 - `prompt_prefix`
 - `prompt_suffix`
 - `reference_image`
+- `reference_image_mode`: `always`, `first_scene`, `when_no_chain`, or `none`
 - `reference_image_strength`
 - `start_image`
 - `start_image_strength`
@@ -167,6 +169,8 @@ STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_fox_sword_photoreal_ref_5m
 ```
 
 This keeps the usual previous-frame chaining, but also reapplies the same character reference image every scene.
+
+For continuity-heavy runs, prefer `reference_image_mode: "first_scene"` so the reference image seeds only the first clip and later scenes chain from the previous clip's last frame. Using `always` can make every scene restart from the same reference image.
 
 For a sword-immortal plus celestial-fairy run, place your image at:
 

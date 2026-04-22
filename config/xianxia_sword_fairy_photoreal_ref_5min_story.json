@@ -13,6 +13,7 @@
   "enhance_prompt": false,
   "chain_strength": 0.8,
   "reference_image": "~/ltx23pro-story-movie/refs/xianxia_fairy_duo_reference.png",
+  "reference_image_mode": "first_scene",
   "reference_image_strength": 0.92,
   "prompt_prefix": "Photoreal live-action Chinese xianxia feature film with real photographed actors, realistic skin texture, realistic eyes, realistic hair strands, physically plausible silk and ornament texture, grounded cinematic lighting, natural depth of field, premium historical fantasy production design. Keep the same two lead characters in every shot and match the supplied reference image closely. The male lead is a young Chinese sword immortal with a sharp elegant face, straight black hair, pale skin, calm severe expression, flowing white-and-pale-blue robes with silver embroidery, a dark sword at his waist or on his back, realistic human proportions. The female lead is a beautiful Chinese celestial fairy with one consistent face, refined oval face, long dark hair, luminous soft brown eyes, a delicate silver crown, pale silver-blue gauze robes with jeweled details, and a graceful ethereal presence, with realistic human facial structure and skin. Keep the same faces, costumes, colors, and live-action look across all scenes.",
   "prompt_suffix": "Match the reference image identity, costume design, and white-silver-blue palette. Live-action realism only. No anime rendering, no cartoon look, no illustration look, no game cinematic look, no style drift.",

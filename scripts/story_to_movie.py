@@ -276,8 +276,14 @@ def build_command(
         chain_strength = float(scene.get("chain_strength", story.get("chain_strength", 0.75)))
         cmd.extend(["--image", str(conditioning_image), "0", str(chain_strength)])
 
+    reference_image_mode = str(scene.get("reference_image_mode", story.get("reference_image_mode", "always"))).lower()
     reference_image = resolve_image_path(scene.get("reference_image", story.get("reference_image")))
-    if reference_image is not None:
+    should_use_reference_image = reference_image is not None and reference_image_mode != "none"
+    if should_use_reference_image and reference_image_mode == "first_scene":
+        should_use_reference_image = index == 1
+    if should_use_reference_image and reference_image_mode == "when_no_chain":
+        should_use_reference_image = conditioning_image is None
+    if should_use_reference_image:
         reference_image_strength = float(
             scene.get(
                 "reference_image_strength",
@@ -364,6 +370,7 @@ def main() -> int:
                 "reference_image": str(resolve_image_path(scene.get("reference_image", story.get("reference_image"))))
                 if scene.get("reference_image", story.get("reference_image"))
                 else None,
+                "reference_image_mode": scene.get("reference_image_mode", story.get("reference_image_mode", "always")),
                 "start_image": str(resolve_image_path(scene.get("start_image", story.get("start_image"))))
                 if scene.get("start_image", story.get("start_image"))
                 else None,
