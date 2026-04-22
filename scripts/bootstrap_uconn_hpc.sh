@@ -3,6 +3,7 @@ set -euo pipefail
 
 PROJECT_ROOT="${PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 LTX_REPO_DIR="${LTX_REPO_DIR:-$PROJECT_ROOT/vendor/LTX-2}"
+LTX_PYTHON="${LTX_PYTHON:-$LTX_REPO_DIR/.venv/bin/python}"
 SLURM_FILE="${SLURM_FILE:-$PROJECT_ROOT/slurm/run_story_movie_uconn.slurm}"
 MINICONDA_DIR="${MINICONDA_DIR:-$HOME/miniconda3}"
 CONDA_ENV_NAME="${CONDA_ENV_NAME:-ltxbootstrap}"
@@ -69,6 +70,8 @@ fi
   uv sync --frozen
 )
 
+uv pip install --python "$LTX_PYTHON" imageio-ffmpeg
+
 python "$PROJECT_ROOT/scripts/download_ltx23_assets.py"
 
 if [[ ! -d "$PROJECT_ROOT/models/gemma-3-12b-it-qat-q4_0-unquantized" ]] || [[ -z "$(find "$PROJECT_ROOT/models/gemma-3-12b-it-qat-q4_0-unquantized" -maxdepth 1 -type f 2>/dev/null)" ]]; then
@@ -88,4 +91,3 @@ if $SUBMIT_JOB; then
 fi
 
 echo "Bootstrap complete."
-

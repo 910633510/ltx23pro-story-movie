@@ -17,6 +17,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - generates scene-by-scene MP4 clips from a story JSON
 - chains scenes by extracting the last frame of the previous clip and using it as image conditioning for the next clip
 - optionally concatenates the clips into a single movie
+- installs an `imageio-ffmpeg` fallback during bootstrap so HPC runs can create `movie.mp4` even when no system `ffmpeg` module is available
 
 ## Important Limits
 

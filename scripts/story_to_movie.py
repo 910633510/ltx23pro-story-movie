@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -142,10 +143,26 @@ def extract_last_frame(video_path: Path, image_path: Path) -> None:
         raise RuntimeError(f"Unable to write last frame to {image_path}")
 
 
+def find_ffmpeg() -> str | None:
+    env_ffmpeg = os.environ.get("FFMPEG_BIN")
+    if env_ffmpeg:
+        return env_ffmpeg
+
+    system_ffmpeg = shutil.which("ffmpeg")
+    if system_ffmpeg:
+        return system_ffmpeg
+
+    try:
+        import imageio_ffmpeg
+    except ImportError:
+        return None
+    return imageio_ffmpeg.get_ffmpeg_exe()
+
+
 def concat_videos(clips: list[Path], output_path: Path) -> bool:
-    ffmpeg = shutil.which("ffmpeg")
+    ffmpeg = find_ffmpeg()
     if ffmpeg is None:
-        print("ffmpeg not found; skipping concatenation.", file=sys.stderr)
+        print("ffmpeg not found; skipping concatenation. Install imageio-ffmpeg or set FFMPEG_BIN.", file=sys.stderr)
         return False
 
     list_file = output_path.with_suffix(".txt")
