@@ -84,6 +84,13 @@ def parse_args() -> argparse.Namespace:
 def load_story(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         data = json.load(handle)
+    if "extends" in data:
+        base_path = Path(data["extends"]).expanduser()
+        if not base_path.is_absolute():
+            base_path = path.parent / base_path
+        base_data = load_story(base_path.resolve())
+        override = {key: value for key, value in data.items() if key != "extends"}
+        data = {**base_data, **override}
     if "scenes" not in data or not isinstance(data["scenes"], list) or not data["scenes"]:
         raise ValueError(f"{path} must contain a non-empty 'scenes' list")
     return data

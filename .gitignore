@@ -6,6 +6,7 @@ logs/
 __pycache__/
 *.pyc
 *.bak
+*.mp4
 refs/*.png
 !refs/xianxia_fairy_duo_reference.png
 refs/*.jpg

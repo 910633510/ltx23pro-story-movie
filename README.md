@@ -35,6 +35,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `config/xianxia_fox_sword_photoreal_5min_story.json`: long xianxia sample with stronger photoreal identity locking
 - `config/xianxia_fox_sword_photoreal_ref_5min_story.json`: long xianxia sample that reapplies a reference image on every scene
 - `config/xianxia_sword_fairy_photoreal_ref_5min_story.json`: reference-driven sword immortal + celestial fairy variant tuned for white/silver/blue dual-character images
+- `config/xianxia_sword_fairy_photoreal_ref_4k_story.json`: premium continuous 4K override for the sword immortal + celestial fairy variant at `3840x2176`
 - `refs/README.md`: where to place the dual-character reference image for the reference-driven run
 - `storyboards/xianxia_fox_sword_5min_script.md`: readable version of the same story
 - `storyboards/xianxia_sword_fairy_5min_script.md`: readable sword immortal + celestial fairy version
@@ -151,6 +152,8 @@ Useful per-scene overrides:
 - `start_image_strength`
 - `enhance_prompt`
 
+Story files can also use `"extends": "other_story.json"` to inherit a base story and override only selected top-level settings such as width, height, prompt prefix, chain strength, or seed.
+
 ## Reference-Driven Runs
 
 If you care more about stable live-action faces than pure prompt freedom, use a reference-driven config.
@@ -184,6 +187,15 @@ Then submit:
 cd ~/ltx23pro-story-movie
 STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_sword_fairy_photoreal_ref_5min_story.json" sbatch slurm/run_story_movie_uconn.slurm
 ```
+
+For the 4K version:
+
+```bash
+cd ~/ltx23pro-story-movie
+STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_sword_fairy_photoreal_ref_4k_story.json" sbatch slurm/run_story_movie_uconn.slurm
+```
+
+The 4K fairy config keeps `24` inference steps to stay closer to the 12-hour `general-gpu` wall-time limit, uses `3840x2176`, lowers reference image strength so the first clip is not just a static portrait, and raises chaining strength to improve shot-to-shot continuity.
 
 ## Safer First Runs
 
