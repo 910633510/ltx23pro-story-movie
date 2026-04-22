@@ -1,5 +1,5 @@
 {
-  "movie_title": "Xianxia Sword Immortal and Celestial Fairy Photoreal Reference Locked Five Minute LTX Cut",
+  "movie_title": "Xianxia Sword Immortal and Celestial Fairy Continuous Photoreal Reference Cut",
   "pipeline_module": "ltx_pipelines.ti2vid_two_stages",
   "default_width": 1920,
   "default_height": 1088,
@@ -15,158 +15,158 @@
   "reference_image": "~/ltx23pro-story-movie/refs/xianxia_fairy_duo_reference.png",
   "reference_image_mode": "first_scene",
   "reference_image_strength": 0.92,
-  "prompt_prefix": "Photoreal live-action Chinese xianxia feature film with real photographed actors, realistic skin texture, realistic eyes, realistic hair strands, physically plausible silk and ornament texture, grounded cinematic lighting, natural depth of field, premium historical fantasy production design. Keep the same two lead characters in every shot and match the supplied reference image closely. The male lead is a young Chinese sword immortal with a sharp elegant face, straight black hair, pale skin, calm severe expression, flowing white-and-pale-blue robes with silver embroidery, a dark sword at his waist or on his back, realistic human proportions. The female lead is a beautiful Chinese celestial fairy with one consistent face, refined oval face, long dark hair, luminous soft brown eyes, a delicate silver crown, pale silver-blue gauze robes with jeweled details, and a graceful ethereal presence, with realistic human facial structure and skin. Keep the same faces, costumes, colors, and live-action look across all scenes.",
-  "prompt_suffix": "Match the reference image identity, costume design, and white-silver-blue palette. Live-action realism only. No anime rendering, no cartoon look, no illustration look, no game cinematic look, no style drift.",
-  "negative_prompt": "anime, animated, cartoon, cel shading, illustration, painting, concept art, game cinematic, stylized fantasy splash art, plastic skin, doll face, waxy skin, fake eyes, oversized eyes, face drift, identity drift, costume drift, duplicate person, fox ears, animal tail, duplicate tails, malformed anatomy, extra limbs, bad hands, blur, low detail, muddy textures, temporal flicker, heavy CG look, watermark, logo, text",
+  "prompt_prefix": "Photoreal live-action Chinese xianxia feature film, written as one continuous dramatic sequence rather than isolated fantasy images. Maintain two consistent leads after the opening identity is established: a young Chinese sword immortal in white and pale blue robes with silver embroidery, straight black hair, calm restrained focus, and a dark sword; and a Chinese celestial fairy in pale silver-blue gauze robes with a delicate silver crown, long dark hair, soft brown eyes, and an elegant guarded presence. Keep realistic human faces, natural skin, believable hair and cloth, practical set texture, restrained high-end VFX, coherent geography, consistent screen direction, and a single white-silver-blue color grade. Their relationship should evolve visibly from suspicion, to forced cooperation, to quiet trust.",
+  "prompt_suffix": "Treat the clip as a continuation of the previous final frame whenever continue_from_previous is true: preserve body positions, eyelines, motion direction, lighting, debris, water, mist, and energy trails, then advance the story by one clear beat. End each shot with a readable pose or environmental state that can become the next shot's first frame. Avoid montage resets, unrelated new openings, static portraits, and repeated reveal poses. Cinematic camera movement, grounded live-action motion, stable identities, realistic cloth physics, no style drift.",
+  "negative_prompt": "anime, animated, cartoon, cel shading, illustration, painting, concept art, game cinematic, stylized fantasy splash art, plastic skin, doll face, waxy skin, fake eyes, oversized eyes, face drift, identity drift, costume drift, age drift, duplicate person, fox ears, animal tail, duplicate tails, malformed anatomy, extra limbs, bad hands, blur, low detail, muddy textures, temporal flicker, heavy CG look, jump cut, hard reset, scene reset, repeated reference pose, static portrait, slideshow, unrelated location change, inconsistent screen direction, broken continuity, watermark, logo, text",
   "scenes": [
     {
       "id": "scene-01",
-      "prompt": "At dawn above a sea of clouds, enormous ancient Chinese cultivation mountains rise through luminous mist, immortal palaces and stone bridges hanging between peaks, spiritual energy flowing through the sky, sweeping live-action opening shot with epic but believable scale.",
+      "prompt": "Dawn opens on a sea of clouds around ancient cultivation peaks, the camera gliding forward between hanging bridges and distant palace roofs as morning light reveals a narrow cliff path below. A cold blue spiritual ripple travels along the path toward an unseen figure, leaving the final frame aimed down the route where the sword immortal will enter.",
       "continue_from_previous": false
     },
     {
       "id": "scene-02",
-      "prompt": "Continue the scene as the same male sword immortal from the reference image stands on a cliff edge in flowing white-and-pale-blue robes, black hair moving in cold wind, blue-white aura gathering around him, medium hero shot with restrained camera drift and realistic cloth behavior.",
+      "prompt": "Following the blue ripple from the previous shot, the sword immortal steps into frame on the cliff path and stops at the edge, robes moving in the high wind while his hand settles near the dark sword. The camera circles slowly from behind to a three-quarter view, ending with him looking toward a mountain temple hidden in cloud.",
       "continue_from_previous": true
     },
     {
       "id": "scene-03",
-      "prompt": "Continue the scene as an elder delivers a glowing spiritual decree to the same sword immortal, golden runes circling in front of him, solemn sect ceremony, realistic actor blocking, temple banners and sleeves moving in mountain wind.",
+      "prompt": "Keeping his eyeline toward the temple, the scene continues as bells shake in the wind and an elder approaches through drifting banners with a glowing decree. Gold runes unfold between them, reflected in the sword immortal's steady eyes, and the shot ends as the decree burns a map-like path across the clouds.",
       "continue_from_previous": true
     },
     {
       "id": "scene-04",
-      "prompt": "Continue the scene as the sword immortal launches into storm clouds on a flying sword, lightning illuminating his same face and white costume, high-speed tracking shot with grounded live-action motion and rain texture.",
+      "prompt": "The burning cloud-map becomes the route ahead as the sword immortal launches from the cliff on his flying sword. The camera tracks beside him through storm cloud layers, lightning briefly carving the same face and robe silhouette out of darkness, and the shot ends with him descending toward a moonlit valley below.",
       "continue_from_previous": true
     },
     {
       "id": "scene-05",
-      "prompt": "Continue the scene at a moonlit ancient terrace above a still pool, stone lanterns and carved railings wrapped in drifting mist, silver petals floating through the air, soft celestial light descending between old pines, elegant night photography with quiet danger and wonder.",
+      "prompt": "The descent resolves into a moonlit terrace beside a still black pool, where his flying sword skims low over wet stone and slows. Silver petals drift across the same direction of travel, stone lanterns glow through mist, and a faint moon-white pulse rises from the water, guiding the camera toward the far bank.",
       "continue_from_previous": true
     },
     {
       "id": "scene-06",
-      "prompt": "Continue the scene as the same female celestial fairy from the reference image appears beside the moonlit pool, refined realistic face, delicate silver crown, long dark hair, pale silver-blue gauze robes, translucent sleeves, jeweled belt details, close cinematic reveal with stable identity.",
+      "prompt": "Following the pulse across the pool, the celestial fairy is revealed on the far bank as if she has been waiting, her silver crown catching the same moonlight reflected on the water. She does not pose; she turns slightly from the ripple, gauze sleeves trailing, and the shot ends with both leads facing each other across the pool.",
       "continue_from_previous": true
     },
     {
       "id": "scene-07",
-      "prompt": "Continue the scene as the same celestial fairy lifts her gaze and gives a faint unreadable smile, moonlight catching the same face and same wardrobe details, her gauze sleeves and ornaments moving softly in the wind, intimate live-action push-in.",
+      "prompt": "Holding the two-sided standoff, the camera drifts closer to the fairy as she studies the sword immortal rather than smiling for a reveal. A talisman hidden in her sleeve glows once, showing caution instead of threat, and her final movement sends a thin ribbon of moonlight across the water toward his feet.",
       "continue_from_previous": true
     },
     {
       "id": "scene-08",
-      "prompt": "Continue the scene as the sword immortal lands beside the pool and faces the celestial fairy, their spiritual pressure colliding, ripples racing across black water, dead leaves lifting into the air, tense widescreen standoff with both characters matching the reference image identities.",
+      "prompt": "The ribbon reaches the sword immortal's boots and he answers by half-drawing the sword, blue light sliding only a few inches from the scabbard. Water ripples outward between them, leaves lift around both bodies, and the shot ends with their powers meeting at the center of the pool without either one attacking first.",
       "continue_from_previous": true
     },
     {
       "id": "scene-09",
-      "prompt": "Continue the scene as the first clash erupts, blue sword light slicing through mist while moon-white fairy light tears across the air in elegant ribbons, realistic wuxia timing and grounded live-action choreography, both faces and costumes kept stable.",
+      "prompt": "The pressure at the center of the pool breaks into the first exchange: his blue sword arc cuts low across the mist while her moon-white ribbon redirects it upward. The camera follows the deflected arc into the trees, branches shudder, petals scatter, and both fighters land on opposite wet stones ready for the next movement.",
       "continue_from_previous": true
     },
     {
       "id": "scene-10",
-      "prompt": "Continue the scene as the celestial fairy circles behind him in silver light and the sword immortal summons a ring of flying swords, floating silk ribbons and star-like talismans weaving through the duel, dynamic coverage with foreground and background depth.",
+      "prompt": "From those opposite stones, they move in a measured circle rather than a random duel: the sword immortal releases three flying blades to hold the front while the fairy steps screen-left, ribbons tracing a silver boundary behind him. The shot ends overhead, showing their circular pattern tightening around the pool.",
       "continue_from_previous": true
     },
     {
       "id": "scene-11",
-      "prompt": "Continue the scene as sword aura and celestial light collide above the moonlit pool, water exploding upward, blue sparks and silver embers scattering through the night, both leads moving with believable superhuman grace while keeping the same identities.",
+      "prompt": "The overhead circle tightens until sword light and celestial ribbons collide directly above the water, throwing a column of spray between them. Through the spray, both faces remain controlled and wary, and the final frame holds on black water falling back to reveal glowing lines under the pool floor.",
       "continue_from_previous": true
     },
     {
       "id": "scene-12",
-      "prompt": "Continue the scene as ancient array lines ignite beneath the pool, cracked seals glowing gold and black, the ground trembling, broken runes rising from the water, atmosphere shifting from duel to catastrophe in grounded cinematic realism.",
+      "prompt": "Both characters lower their weapons as the glowing lines spread beneath their feet, turning the duel into shared alarm. The camera drops with the sinking water level to show cracked seals opening below the pool, and the shot ends with the terrace stones splitting in a ring around them.",
       "continue_from_previous": true
     },
     {
       "id": "scene-13",
-      "prompt": "Continue the scene as black energy erupts and a secret heavenly realm opens, a shattered celestial palace rising from the void with floating stairs and ruined halls, immense ancient divine architecture emerging through cloud and darkness.",
+      "prompt": "The split stones rise instead of falling, pulled upward by black-gold energy as a secret heavenly realm opens under the pool. The camera moves with the rising debris into a vast vertical shaft where broken palace roofs hang upside down, ending with both leads silhouetted at the rim of the opening.",
       "continue_from_previous": true
     },
     {
       "id": "scene-14",
-      "prompt": "Continue the scene as the sword immortal and celestial fairy leap into the opening one after another, each refusing to let the other reach the sacred core first, dramatic descent into radiant ancient space with stable faces and costume continuity.",
+      "prompt": "At the rim, the sword immortal and the fairy exchange a brief distrustful glance, then leap in one after the other because the opening is already collapsing behind them. Wind pulls their robes in the same downward direction, broken stone falls beside them, and the shot ends as they separate onto two suspended stairways.",
       "continue_from_previous": true
     },
     {
       "id": "scene-15",
-      "prompt": "Continue the scene inside the secret realm, revealing an upside-down celestial palace with broken jade stairs and rivers of starlight suspended in air, surreal but believable space photographed like a premium live-action fantasy set.",
+      "prompt": "Continuing from the separated stairways, the camera reveals the upside-down celestial palace as a coherent space: jade stairs, torn banners, floating starlight rivers, and one distant altar below. The two leads move on parallel paths toward the same glow, ending with a broken wall sliding between them.",
       "continue_from_previous": true
     },
     {
       "id": "scene-16",
-      "prompt": "Continue the scene as the sword immortal moves through a ruined corridor lined with stone warriors and they awaken in cold blue formations, dust falling from armor, mechanisms grinding to life, realistic camera movement and practical texture.",
+      "prompt": "On his side of the wall, the sword immortal enters a corridor of stone warriors while dust from the moving wall still falls behind him. The statues awaken in sequence from foreground to background, blue sword formations reflecting in his eyes, and the shot ends with his blades forming a tight defensive fan.",
       "continue_from_previous": true
     },
     {
       "id": "scene-17",
-      "prompt": "Continue the scene as the same celestial fairy crosses a ruined flower terrace filled with illusion mist, her silver sleeves and flowing spiritual ribbons sweeping away enchantments while fractured memories flicker around her, melancholy beauty and danger held in a realistic human performance.",
+      "prompt": "On the fairy's side, the same falling dust becomes silver pollen over a ruined flower terrace filled with illusion mist. She walks carefully, using one ribbon to test the path before each step, fractured memories flickering around her face, and the shot ends as her ribbon tears open a passage toward the altar.",
       "continue_from_previous": true
     },
     {
       "id": "scene-18",
-      "prompt": "Continue the scene as the two meet again before an ancient altar and giant guardian puppets awaken around them, forcing a temporary alliance, sword aura and moon-white fairy light standing side by side against overwhelming enemies.",
+      "prompt": "The torn passage reconnects both paths at the ancient altar, where the sword immortal backs in from battle with the stone warriors and the fairy arrives from the mist at the same moment. Guardian puppets rise around them, forcing them back to back, and the final frame holds their reluctant alliance in one clear silhouette.",
       "continue_from_previous": true
     },
     {
       "id": "scene-19",
-      "prompt": "Continue the scene as the sword immortal forms a defensive flying-sword array in front while the celestial fairy seals the rear with starlight ribbons and luminous talismans, the two beginning to move with tactical harmony, strong live-action ensemble framing.",
+      "prompt": "Starting from that back-to-back silhouette, they fight as a coordinated pair for the first time: his flying swords hold the front arc while her moonlit ribbons seal the rear gaps. The camera stays wide enough to show tactics, not chaos, and ends with both powers driving the guardians toward the altar core.",
       "continue_from_previous": true
     },
     {
       "id": "scene-20",
-      "prompt": "Continue the scene as they shatter the guardian cores and reveal the Taixu spiritual core at the altar center, glowing with ancient cosmic energy, while a fallen immortal remnant begins to awaken in black-gold pressure behind it.",
+      "prompt": "The guardians are pushed into the altar core and shatter in a chain of blue and silver impacts. As fragments fall around the two leads, the Taixu spiritual core rises between them, beautiful and unstable, and the shot ends when a black-gold handprint appears inside the light.",
       "continue_from_previous": true
     },
     {
       "id": "scene-21",
-      "prompt": "Continue the scene as the fallen immortal forms in the air wearing broken celestial armor, surrounded by shattered sword sigils and black-gold energy, declaring he will restart an ancient slaughter array to erase both earthly immortals and heavenly spirits, imposing live-action villain reveal.",
+      "prompt": "The black-gold handprint expands into a fallen immortal remnant wearing broken celestial armor, forming above the altar from the same unstable core. He does not simply appear; shards orbit into his body piece by piece, and the shot ends with his shadow stretching across both leads and cutting the altar light in half.",
       "continue_from_previous": true
     },
     {
       "id": "scene-22",
-      "prompt": "Continue the scene as the fallen immortal unleashes thunder-charged sword intent that blasts the young sword immortal backward across the hall, jade tiles exploding beneath him, blue lightning and divine pressure tearing through the palace.",
+      "prompt": "From that dividing shadow, the fallen immortal releases thunder-charged sword intent straight down the altar line. The sword immortal blocks first and is driven backward across breaking jade tiles, leaving a long blue gouge in the floor, and the shot ends with him on one knee still holding the blade up.",
       "continue_from_previous": true
     },
     {
       "id": "scene-23",
-      "prompt": "Continue the scene as the celestial fairy reveals a towering moon-white celestial avatar behind her and shields him from the next wave, crown blazing, sleeves and spiritual ribbons spread like a radiant halo through the storm, heroic live-action spectacle with stable face and costume design.",
+      "prompt": "Before the next strike lands, the fairy steps into the blue gouge he left behind and spreads her sleeves into a moon-white celestial shield. The shield trembles under black-gold pressure while her face shows fear held under control, and the shot ends with her looking back to make sure he can stand.",
       "continue_from_previous": true
     },
     {
       "id": "scene-24",
-      "prompt": "Continue the scene as the fallen immortal tries to divide them, mocking the impossible trust between an earthbound sword cultivator and a heavenly fairy while dark runes and broken heavenly chains whirl around the battlefield, emotional tension rising inside a collapsing cosmic chamber.",
+      "prompt": "Using that glance, the fallen immortal sends chains of dark script between them, trying to split their positions and turn suspicion back into distance. The camera moves through the spinning chains to show both resisting on opposite sides, and the shot ends with the chain nearest their hands cracking but not breaking.",
       "continue_from_previous": true
     },
     {
       "id": "scene-25",
-      "prompt": "Continue the scene as the sword immortal lowers his guard and turns slightly, giving his back to the celestial fairy in a clear act of trust, drifting debris and moonlit ruins behind them, a restrained emotional turning point captured with quiet realism.",
+      "prompt": "The sword immortal makes the first choice: he lowers his sword point, turns his back to the fairy, and exposes himself to the broken chain so she can reach the opening. The camera slows on her reaction, guardedness giving way to trust, and the final frame holds her hand lifting toward his sword light.",
       "continue_from_previous": true
     },
     {
       "id": "scene-26",
-      "prompt": "Continue the scene as the celestial fairy accepts his trust with a small knowing smile, silver-white spiritual ribbons and moonlit seals braiding around his sword light to open a path toward the enemy, two powers weaving into one force.",
+      "prompt": "Her lifted hand completes the trust beat as silver ribbons braid around his blue sword light without fighting it. Together they pull the cracked chain apart, opening a narrow path through the dark script, and the shot ends with both leads moving forward in the same direction for the first time.",
       "continue_from_previous": true
     },
     {
       "id": "scene-27",
-      "prompt": "Continue the scene as the sword immortal unleashes his ultimate sword technique and ten thousand swords rise into a dragon of light while the celestial fairy opens a vast moon-white heavenly array of stars and floating sigils, climactic live-action xianxia spectacle with consistent leads.",
+      "prompt": "Continuing that forward movement, the sword immortal releases his ultimate technique and ten thousand blades rise into a blue dragon while the fairy anchors a moon-white heavenly array around its spine. The camera climbs with the dragon as both leads hold the formation below, ending at the instant the combined strike dives.",
       "continue_from_previous": true
     },
     {
       "id": "scene-28",
-      "prompt": "Continue the scene as the sword dragon and heavenly array merge into one devastating strike, shattering the fallen immortal and the slaughter array core while the celestial palace collapses in slow motion around them, storms of jade, sparks, and starlight filling the frame.",
+      "prompt": "The combined strike hits the fallen immortal and the slaughter array core in one continuous impact, not a separate explosion. Black-gold armor cracks, jade pillars shear away, and starlight pours through the collapsing palace, with the final frame following a wave of debris sweeping both leads toward the void.",
       "continue_from_previous": true
     },
     {
       "id": "scene-29",
-      "prompt": "Continue the scene as the celestial fairy falls through a collapsing void after being wounded and the sword immortal dives after her on his flying sword, catching her in his arms amid fragments of stars and broken palace stone, emotional rescue beat inside cosmic destruction.",
+      "prompt": "The debris wave carries the fairy off the broken platform first, her ribbons snapping loose as she falls through the star-filled void. The sword immortal dives after her on his flying sword along the same debris path, catches her before she disappears into clouded darkness, and the shot ends with them spiraling upward together.",
       "continue_from_previous": true
     },
     {
       "id": "scene-30",
-      "prompt": "Continue the scene as dawn rises over a lonely snow-dusted peak, the sword immortal and the celestial fairy from the reference image standing side by side in silence, pale robes and silver ornaments stirring in the morning wind, unresolved destiny and restrained romantic tension in a final wide pullback.",
+      "prompt": "Their upward spiral resolves into dawn on a snow-dusted peak, the same wind direction now calm as broken starlight fades from their robes. They stand side by side without speaking, no longer facing each other as enemies but not fully touching, and the camera pulls back to leave them small against quiet mountains and a still unfinished bond.",
       "continue_from_previous": true
     }
   ]
