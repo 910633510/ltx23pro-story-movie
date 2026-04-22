@@ -33,8 +33,10 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `config/xianxia_fox_sword_5min_story.json`: long xianxia sample
 - `config/xianxia_fox_sword_photoreal_5min_story.json`: long xianxia sample with stronger photoreal identity locking
 - `config/xianxia_fox_sword_photoreal_ref_5min_story.json`: long xianxia sample that reapplies a reference image on every scene
+- `config/xianxia_sword_fairy_photoreal_ref_5min_story.json`: reference-driven sword immortal + celestial fairy variant tuned for white/silver/blue dual-character images
 - `refs/README.md`: where to place the dual-character reference image for the reference-driven run
 - `storyboards/xianxia_fox_sword_5min_script.md`: readable version of the same story
+- `storyboards/xianxia_sword_fairy_5min_script.md`: readable sword immortal + celestial fairy version
 - `scripts/download_ltx23_assets.py`: downloads the full model bundle
 - `scripts/bootstrap_uconn_hpc.sh`: sets up env + models + optional Slurm submission
 - `scripts/story_to_movie.py`: runs LTX scene-by-scene with progress logging
@@ -158,6 +160,19 @@ STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_fox_sword_photoreal_ref_5m
 ```
 
 This keeps the usual previous-frame chaining, but also reapplies the same character reference image every scene.
+
+For a sword-immortal plus celestial-fairy run, place your image at:
+
+```bash
+~/ltx23pro-story-movie/refs/xianxia_fairy_duo_reference.png
+```
+
+Then submit:
+
+```bash
+cd ~/ltx23pro-story-movie
+STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_sword_fairy_photoreal_ref_5min_story.json" sbatch slurm/run_story_movie_uconn.slurm
+```
 
 ## Safer First Runs
 
