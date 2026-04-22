@@ -24,6 +24,19 @@ mkdir -p "$OUTPUT_DIR" "$PROJECT_ROOT/logs"
 
 cd "$PROJECT_ROOT"
 
+if ! command -v module >/dev/null 2>&1 && [[ -r /etc/profile.d/modules.sh ]]; then
+  # shellcheck source=/dev/null
+  source /etc/profile.d/modules.sh
+fi
+
+if [[ "${LOAD_FFMPEG_MODULE:-1}" == "1" ]] && command -v module >/dev/null 2>&1; then
+  module load "${FFMPEG_MODULE:-ffmpeg}" >/dev/null 2>&1 || module load FFmpeg >/dev/null 2>&1 || true
+fi
+
+if ! command -v ffmpeg >/dev/null 2>&1; then
+  echo "Warning: ffmpeg not found; final movie concatenation will be skipped." >&2
+fi
+
 "$LTX_PYTHON" "$PROJECT_ROOT/scripts/story_to_movie.py" \
   --story "$STORY_JSON" \
   --ltx-repo "$LTX_REPO_DIR" \
