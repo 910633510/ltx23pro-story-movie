@@ -178,6 +178,9 @@ STORY_JSON="$HOME/ltx23pro-story-movie/config/xianxia_sword_fairy_photoreal_ref_
 
 Recommended first submit:
 
+- partition: `general-gpu`
+- constraint: `a100,epyc64`
+- GPU request: `--gres=gpu:1`
 - width: `1920`
 - height: `1088`
 - frames: `121`

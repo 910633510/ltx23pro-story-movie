@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --constraint=epyc64
+#SBATCH --constraint=a100,epyc64
 #SBATCH --mem=192G
 #SBATCH --gres=gpu:1
 #SBATCH --time=12:00:00
