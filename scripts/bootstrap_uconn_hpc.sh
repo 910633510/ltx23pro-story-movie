@@ -57,7 +57,7 @@ fi
 
 conda activate "$CONDA_ENV_NAME"
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install uv "huggingface_hub[cli]" opencv-python
+python -m pip install uv "huggingface_hub[cli]" opencv-python mediapipe imageio-ffmpeg
 
 if [[ ! -d "$LTX_REPO_DIR/.git" ]]; then
   git clone https://github.com/Lightricks/LTX-2.git "$LTX_REPO_DIR"
@@ -72,7 +72,15 @@ fi
 
 uv pip install --python "$LTX_PYTHON" imageio-ffmpeg
 
-python "$PROJECT_ROOT/scripts/download_ltx23_assets.py"
+download_args=()
+if [[ "${DOWNLOAD_DISTILLED_CHECKPOINT:-0}" == "1" ]]; then
+  download_args+=(--include-distilled-checkpoint)
+fi
+if [[ "${DOWNLOAD_NARUTO_IC_LORAS:-0}" == "1" ]]; then
+  download_args+=(--include-naruto-ic-loras)
+fi
+
+python "$PROJECT_ROOT/scripts/download_ltx23_assets.py" "${download_args[@]}"
 
 if [[ ! -d "$PROJECT_ROOT/models/gemma-3-12b-it-qat-q4_0-unquantized" ]] || [[ -z "$(find "$PROJECT_ROOT/models/gemma-3-12b-it-qat-q4_0-unquantized" -maxdepth 1 -type f 2>/dev/null)" ]]; then
   cat >&2 <<'EOF'

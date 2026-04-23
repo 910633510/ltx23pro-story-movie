@@ -16,13 +16,18 @@ OPEN_MODEL_FILES = [
     "ltx-2.3-22b-distilled-lora-384-1.1.safetensors",
 ]
 
+OPTIONAL_DISTILLED_CHECKPOINT = "ltx-2.3-22b-distilled-1.1.safetensors"
 OPTIONAL_TEMPORAL_FILE = "ltx-2.3-temporal-upscaler-x2-1.0.safetensors"
+OPTIONAL_IC_LORA_MODELS = {
+    "Lightricks/LTX-2-19b-IC-LoRA-Pose-Control": "ltx-2-19b-ic-lora-pose-control.safetensors",
+    "Lightricks/LTX-2-19b-IC-LoRA-Canny-Control": "ltx-2-19b-ic-lora-canny-control.safetensors",
+}
 
 
 def parse_args() -> argparse.Namespace:
     project_root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(
-        description="Download the official LTX-2.3 full-model assets required by this project."
+        description="Download the official LTX-2.3 assets required by this project."
     )
     parser.add_argument(
         "--model-dir",
@@ -40,6 +45,22 @@ def parse_args() -> argparse.Namespace:
         "--include-temporal-upscaler",
         action="store_true",
         help="Also download the optional temporal upscaler file.",
+    )
+    parser.add_argument(
+        "--include-distilled-checkpoint",
+        action="store_true",
+        help="Also download the distilled 22B checkpoint required by the IC-LoRA vid2vid pipeline.",
+    )
+    parser.add_argument(
+        "--include-naruto-ic-loras",
+        action="store_true",
+        help="Also download the official pose and canny IC-LoRA checkpoints used by the Naruto vid2vid pipeline.",
+    )
+    parser.add_argument(
+        "--lora-dir",
+        type=Path,
+        default=project_root / "models" / "LTX-2.3" / "loras",
+        help="Directory where optional IC-LoRA files will be stored.",
     )
     return parser.parse_args()
 
@@ -62,6 +83,8 @@ def main() -> int:
     allow_patterns = list(OPEN_MODEL_FILES)
     if args.include_temporal_upscaler:
         allow_patterns.append(OPTIONAL_TEMPORAL_FILE)
+    if args.include_distilled_checkpoint:
+        allow_patterns.append(OPTIONAL_DISTILLED_CHECKPOINT)
 
     print(f"Downloading {LTX_REPO_ID} assets into {args.model_dir}", flush=True)
     snapshot_download(
@@ -72,6 +95,19 @@ def main() -> int:
         token=token,
         resume_download=True,
     )
+
+    if args.include_naruto_ic_loras:
+        args.lora_dir.mkdir(parents=True, exist_ok=True)
+        for repo_id, filename in OPTIONAL_IC_LORA_MODELS.items():
+            print(f"Downloading {repo_id} into {args.lora_dir}", flush=True)
+            snapshot_download(
+                repo_id=repo_id,
+                repo_type="model",
+                local_dir=str(args.lora_dir),
+                allow_patterns=[filename],
+                token=token,
+                resume_download=True,
+            )
 
     if token is None:
         print(

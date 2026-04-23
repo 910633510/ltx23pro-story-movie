@@ -12,3 +12,5 @@ refs/*.png
 refs/*.jpg
 refs/*.jpeg
 refs/*.webp
+refs/naruto_379/*
+!refs/naruto_379/README.md

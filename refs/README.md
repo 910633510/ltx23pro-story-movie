@@ -1,5 +1,9 @@
 Place your character reference image files here before running the reference-driven xianxia config.
 
+For the Naruto vid2vid path, place the source episode clip here:
+
+- `Naruto-379.mp4`
+
 Recommended file:
 
 - `xianxia_duo_reference.png`

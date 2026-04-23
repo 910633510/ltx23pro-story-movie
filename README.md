@@ -5,6 +5,7 @@ This project sets up a separate LTX-2.3 pipeline beside `wan-story-movie` so you
 It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) repo and the quality-first `ltx-2.3-22b-dev.safetensors` checkpoint, together with the current required stage-two assets:
 
 - `ltx-2.3-22b-dev.safetensors`
+- `ltx-2.3-22b-distilled-1.1.safetensors` for IC-LoRA video-to-video runs
 - `ltx-2.3-spatial-upscaler-x2-1.1.safetensors`
 - `ltx-2.3-22b-distilled-lora-384-1.1.safetensors`
 - the gated Gemma text encoder repo `google/gemma-3-12b-it-qat-q4_0-unquantized`
@@ -18,6 +19,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - chains scenes by extracting the last frame of the previous clip and using it as image conditioning for the next clip
 - optionally concatenates the clips into a single movie
 - installs an `imageio-ffmpeg` fallback during bootstrap so HPC runs can create `movie.mp4` even when no system `ffmpeg` module is available
+- includes a separate Naruto-379 native 4K vid2vid path built around the upstream `ltx_pipelines.ic_lora` pipeline
 
 ## Important Limits
 
@@ -36,13 +38,24 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `config/xianxia_fox_sword_photoreal_ref_5min_story.json`: long xianxia sample that reapplies a reference image on every scene
 - `config/xianxia_sword_fairy_photoreal_ref_5min_story.json`: reference-driven sword immortal + celestial fairy variant tuned for white/silver/blue dual-character images
 - `config/xianxia_sword_fairy_photoreal_ref_4k_story.json`: premium continuous 4K override for the sword immortal + celestial fairy variant at `3840x2176`
+- `config/naruto_379_vid2vid_4k_3min.json`: native 4K Naruto-379 vid2vid config for the first 180 seconds
 - `refs/README.md`: where to place the dual-character reference image for the reference-driven run
+- `refs/naruto_379/README.md`: generated workspace for the Naruto vid2vid pipeline
 - `storyboards/xianxia_fox_sword_5min_script.md`: readable version of the same story
 - `storyboards/xianxia_sword_fairy_5min_script.md`: readable sword immortal + celestial fairy version
 - `scripts/download_ltx23_assets.py`: downloads the full model bundle
 - `scripts/bootstrap_uconn_hpc.sh`: sets up env + models + optional Slurm submission
 - `scripts/story_to_movie.py`: runs LTX scene-by-scene with progress logging
+- `scripts/extract_naruto_segment.py`: extracts the first 180 seconds, audio, and frame sequence from `refs/Naruto-379.mp4`
+- `scripts/make_vid2vid_chunks.py`: creates 97-frame chunk videos and the chunk manifest
+- `scripts/extract_pose_control.py`: builds pose skeleton control videos and marks pose-vs-canny chunk routing
+- `scripts/extract_canny_control.py`: builds canny edge control videos for every chunk
+- `scripts/run_vid2vid_chunk.py`: renders one chunk through `ltx_pipelines.ic_lora`
+- `scripts/assemble_vid2vid_output.py`: trims overlap and assembles `final_silent.mp4`
+- `scripts/mux_original_audio.py`: muxes the original Japanese audio back onto the assembled result
+- `scripts/run_vid2vid_slurm_array.sh`: prepares the Naruto workspace and submits the Slurm array
 - `slurm/run_story_movie_uconn.slurm`: UConn Storrs batch job
+- `slurm/run_naruto_vid2vid_chunk_uconn.slurm`: UConn Storrs Slurm array worker for Naruto vid2vid chunks
 
 ## HPC Setup
 
@@ -80,6 +93,13 @@ The bootstrap script will:
 4. run `uv sync --frozen`
 5. download the LTX-2.3 full-model assets plus Gemma
 6. optionally submit the Slurm job
+
+For the Naruto vid2vid pipeline you also need the distilled checkpoint and the official pose/canny IC-LoRAs. Bootstrap them with:
+
+```bash
+cd ~/ltx23pro-story-movie
+DOWNLOAD_DISTILLED_CHECKPOINT=1 DOWNLOAD_NARUTO_IC_LORAS=1 HF_TOKEN=YOUR_HF_TOKEN ./scripts/bootstrap_uconn_hpc.sh
+```
 
 ## Monitoring
 
@@ -216,6 +236,80 @@ If that works, then try heavier settings. If you later run on Hopper-class GPUs,
 - height: `2176`
 
 But expect much higher memory pressure and runtime.
+
+## Naruto-379 Native 4K Vid2Vid
+
+This path is separate from `story_to_movie.py`. It uses the upstream `ltx_pipelines.ic_lora` CLI so the source anime video becomes a chunked control signal rather than a prompt-only storyboard.
+
+Source asset expected in repo:
+
+```bash
+~/ltx23pro-story-movie/refs/Naruto-379.mp4
+```
+
+The config is:
+
+```bash
+~/ltx23pro-story-movie/config/naruto_379_vid2vid_4k_3min.json
+```
+
+What the Naruto config locks today:
+
+- input window: `0s-180s`
+- resolution: `3840x2160`
+- fps: `24000/1001`
+- chunk size: `97` frames
+- overlap: `16` frames
+- preferred control: MediaPipe pose skeletons
+- fallback control: canny edges
+- output root: `outputs/naruto_379_vid2vid_4k_3min`
+
+Recommended HPC flow:
+
+```bash
+cd ~/ltx23pro-story-movie
+git pull --ff-only origin main
+DOWNLOAD_DISTILLED_CHECKPOINT=1 DOWNLOAD_NARUTO_IC_LORAS=1 HF_TOKEN=YOUR_HF_TOKEN ./scripts/bootstrap_uconn_hpc.sh
+./scripts/run_vid2vid_slurm_array.sh --config "$HOME/ltx23pro-story-movie/config/naruto_379_vid2vid_4k_3min.json"
+```
+
+If your group requires a PI account:
+
+```bash
+./scripts/run_vid2vid_slurm_array.sh --account YOUR_PI_ACCOUNT --config "$HOME/ltx23pro-story-movie/config/naruto_379_vid2vid_4k_3min.json"
+```
+
+That wrapper does four things before submission:
+
+1. extracts the first 180 seconds into `refs/naruto_379/source_segment.mp4`, `source_audio.m4a`, and `source_frames/`
+2. creates 97-frame source chunks and `refs/naruto_379/chunks_manifest.json`
+3. builds pose skeleton controls and marks chunks that have enough pose coverage
+4. builds canny fallback controls, then submits a `%1` Slurm array over all chunks
+
+Array output clips land in:
+
+```bash
+~/ltx23pro-story-movie/outputs/naruto_379_vid2vid_4k_3min/rendered_chunks
+```
+
+After the array finishes:
+
+```bash
+cd ~/ltx23pro-story-movie
+$HOME/miniconda3/envs/ltxbootstrap/bin/python scripts/assemble_vid2vid_output.py --config "$HOME/ltx23pro-story-movie/config/naruto_379_vid2vid_4k_3min.json"
+$HOME/miniconda3/envs/ltxbootstrap/bin/python scripts/mux_original_audio.py --config "$HOME/ltx23pro-story-movie/config/naruto_379_vid2vid_4k_3min.json"
+```
+
+Outputs:
+
+- `outputs/naruto_379_vid2vid_4k_3min/final_silent.mp4`
+- `outputs/naruto_379_vid2vid_4k_3min/final_with_audio.mp4`
+
+Notes:
+
+- The config keeps a `negative_prompt` field for documentation, but the current upstream distilled `ic_lora` CLI does not consume negative prompts.
+- The pipeline defaults to the official pose IC-LoRA when MediaPipe pose coverage reaches `70%` for a chunk; otherwise that chunk routes to the official canny IC-LoRA.
+- The config reserves `chunk_fallback_num_frames=65` for manual OOM recovery, but the default manifest stays on `97`-frame chunks for cleaner overlap assembly.
 
 ## Local Notes
 
