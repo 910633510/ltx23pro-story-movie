@@ -20,12 +20,14 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - optionally concatenates the clips into a single movie
 - installs an `imageio-ffmpeg` fallback during bootstrap so HPC runs can create `movie.mp4` even when no system `ffmpeg` module is available
 - includes a separate Naruto-379 native 4K vid2vid path built around the upstream `ltx_pipelines.ic_lora` pipeline
+- includes a separate HunyuanVideo-1.5 image-to-video smoke test using the official `Tencent-Hunyuan/HunyuanVideo-1.5` source repo
 
 ## Important Limits
 
 - LTX-2.3 is officially 4K-capable, but true 4K inference with the full 22B model is much heavier than the Wan pipeline.
 - On UConn A100 40 GB nodes, the safest first run is not 4K. Start at `1920x1088` or `1536x1024`, verify the pipeline works, then try a higher-resolution profile.
 - Do not use the `fp8-cast` quantization preset on A100 nodes. That path is meant for newer architectures and will fail on the A100s currently common in `general-gpu`.
+- HunyuanVideo-1.5 is added here as a separate local open-source test path, not a replacement for the LTX story pipeline. The default smoke test uses 480p I2V step-distill plus 720p SR because that is the fastest meaningful quality check on a single A100.
 - The Gemma repo is gated on Hugging Face. You must both:
   - accept the Gemma terms on Hugging Face
   - provide a token on HPC, for example `export HF_TOKEN=...`
@@ -39,6 +41,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `config/xianxia_sword_fairy_photoreal_ref_5min_story.json`: reference-driven sword immortal + celestial fairy variant tuned for white/silver/blue dual-character images
 - `config/xianxia_sword_fairy_photoreal_ref_4k_story.json`: premium continuous 4K override for the sword immortal + celestial fairy variant at `3840x2176`
 - `config/naruto_379_vid2vid_4k_3min.json`: native 4K Naruto-379 vid2vid config for the first 180 seconds
+- `config/hunyuan_i2v_smoke_test.json`: HunyuanVideo-1.5 I2V smoke-test config using the fairy reference image
 - `refs/README.md`: where to place the dual-character reference image for the reference-driven run
 - `refs/naruto_379/README.md`: generated workspace for the Naruto vid2vid pipeline
 - `storyboards/xianxia_fox_sword_5min_script.md`: readable version of the same story
@@ -54,8 +57,11 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `scripts/assemble_vid2vid_output.py`: trims overlap and assembles `final_silent.mp4`
 - `scripts/mux_original_audio.py`: muxes the original Japanese audio back onto the assembled result
 - `scripts/run_vid2vid_slurm_array.sh`: prepares the Naruto workspace and submits the Slurm array
+- `scripts/bootstrap_hunyuan_hpc.sh`: clones official HunyuanVideo-1.5, creates the conda env, and downloads smoke-test models
+- `scripts/run_hunyuan_i2v_smoke.py`: validates config and calls official Hunyuan `generate.py`
 - `slurm/run_story_movie_uconn.slurm`: UConn Storrs batch job
 - `slurm/run_naruto_vid2vid_chunk_uconn.slurm`: UConn Storrs Slurm array worker for Naruto vid2vid chunks
+- `slurm/run_hunyuan_i2v_smoke_uconn.slurm`: UConn Storrs single-A100 Hunyuan smoke test
 
 ## HPC Setup
 
@@ -236,6 +242,50 @@ If that works, then try heavier settings. If you later run on Hopper-class GPUs,
 - height: `2176`
 
 But expect much higher memory pressure and runtime.
+
+## HunyuanVideo-1.5 I2V Smoke Test
+
+This path is separate from `story_to_movie.py`. It uses the official [`Tencent-Hunyuan/HunyuanVideo-1.5`](https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5) repo and the Hugging Face model [`tencent/HunyuanVideo-1.5`](https://huggingface.co/tencent/HunyuanVideo-1.5).
+
+The default test intentionally uses the official `480p_i2v_step_distilled` model with 12 steps and enables the official 480p-to-720p SR stage. It is meant to answer "is Hunyuan visually better for our reference-image live-action test?" before spending A100 hours on heavier settings.
+
+One-time setup on UConn HPC:
+
+```bash
+cd ~/ltx23pro-story-movie
+git pull --ff-only origin main
+HF_TOKEN=YOUR_HF_TOKEN ./scripts/bootstrap_hunyuan_hpc.sh
+```
+
+If your group requires a PI account and you want setup plus immediate submit:
+
+```bash
+cd ~/ltx23pro-story-movie
+PI_ACCOUNT=YOUR_PI_ACCOUNT HF_TOKEN=YOUR_HF_TOKEN ./scripts/bootstrap_hunyuan_hpc.sh --submit
+```
+
+The `HF_TOKEN` must have access to `black-forest-labs/FLUX.1-Redux-dev`, because the official Hunyuan I2V pipeline uses that repo as its SigLIP vision encoder. Accept access on Hugging Face before running bootstrap.
+
+Submit only the smoke test:
+
+```bash
+cd ~/ltx23pro-story-movie
+CONFIG_JSON="$HOME/ltx23pro-story-movie/config/hunyuan_i2v_smoke_test.json" sbatch slurm/run_hunyuan_i2v_smoke_uconn.slurm
+```
+
+Monitor it:
+
+```bash
+squeue -u "$USER"
+tail -f "$(ls -t ~/ltx23pro-story-movie/logs/hunyuan-smoke-*.err | head -n 1)"
+```
+
+Expected outputs:
+
+- `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke.mp4`
+- `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke_before_sr.mp4`
+- `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke_config.json`
+- `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke_command.sh`
 
 ## Naruto-379 Native 4K Vid2Vid
 
