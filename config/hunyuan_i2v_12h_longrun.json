@@ -1,0 +1,87 @@
+{
+  "description": "HunyuanVideo-1.5 12-hour long-run batch for UConn A100. Generates as many formal I2V clips as the wall time safely allows.",
+  "hunyuan_repo_dir": "vendor/HunyuanVideo-1.5",
+  "model_path": "models/HunyuanVideo-1.5",
+  "image_path": "refs/xianxia_fairy_duo_reference.png",
+  "output_dir": "outputs/hunyuan_i2v_12h_longrun",
+  "output_name_template": "{index:03d}_{prompt_id}.mp4",
+  "manifest_path": "outputs/hunyuan_i2v_12h_longrun/batch_manifest.json",
+  "command_dir": "outputs/hunyuan_i2v_12h_longrun/commands",
+  "target_run_seconds": 41400,
+  "stop_buffer_seconds": 1800,
+  "max_clips": 999,
+  "resume": true,
+  "seed": 20260425,
+  "seed_stride": 97,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "video_length": 121,
+  "num_inference_steps": 12,
+  "enable_step_distill": true,
+  "cfg_distilled": false,
+  "sparse_attn": false,
+  "use_sageattn": false,
+  "enable_cache": false,
+  "cache_type": "deepcache",
+  "sr": true,
+  "save_pre_sr_video": true,
+  "rewrite": false,
+  "offloading": true,
+  "group_offloading": null,
+  "overlap_group_offloading": true,
+  "dtype": "bf16",
+  "nproc_per_node": 1,
+  "prompt_prefix": "Use the supplied first frame as the exact character and wardrobe reference. Create a photorealistic live-action xianxia film shot with stable identity, stable facial structure, stable clothing, natural skin texture, real fabric, cinematic lighting, coherent human motion, and no anime rendering. ",
+  "prompt_suffix": " Keep the two lead characters recognizable from the reference image throughout the entire clip. Avoid resetting the pose to a still portrait; create natural motion with a clear beginning, middle, and ending pose.",
+  "negative_prompt": "anime, manga, cel shading, 2D drawing, game CG, plastic skin, wax face, distorted hands, extra fingers, deformed face, face drift, identity drift, duplicated people, sudden costume changes, flicker, low detail, blur, overexposed, oversaturated, text, watermark, logo",
+  "prompts": [
+    {
+      "id": "bridge_push_in",
+      "text": "A slow push-in on the sword immortal and celestial fairy standing on a misty mountain bridge. Wind lifts their white and silver robes, pale petals drift across the lens, and their guarded expressions soften into quiet trust."
+    },
+    {
+      "id": "walking_side_track",
+      "text": "The pair walk side by side along a stone path above cloud-filled cliffs. The camera tracks from their left, robe hems brushing the wet stones, hair ornaments catching cold morning light, their pace measured and synchronized."
+    },
+    {
+      "id": "sword_unsheath",
+      "text": "The sword immortal slowly draws his blade halfway while the fairy raises one hand to calm the wind around them. The camera arcs around their shoulders, catching silver reflections on silk, metal, and drifting mist."
+    },
+    {
+      "id": "fairy_spell",
+      "text": "The fairy steps forward and forms a quiet protective spell with both hands, translucent light rippling outward like water. The sword immortal remains behind her, alert and protective, while the camera lowers into a dramatic medium close shot."
+    },
+    {
+      "id": "shared_glance",
+      "text": "A restrained intimate moment: the two turn toward each other after a distant thunder echo, exchanging a brief glance without speaking. The camera stays steady, shallow depth of field, tiny snow-like petals crossing between their faces."
+    },
+    {
+      "id": "cliff_wide",
+      "text": "A wide establishing shot shows the couple on a cliff platform surrounded by waterfalls, temples, and cloud seas. Their silhouettes remain clear and stable as the camera cranes upward, revealing the vast xianxia landscape."
+    },
+    {
+      "id": "battle_ready",
+      "text": "They move into a coordinated defensive stance as invisible pressure sweeps through the bridge. The sword immortal turns his shoulder toward the threat, the fairy pivots behind him, sleeves and ribbons trailing with physically plausible motion."
+    },
+    {
+      "id": "lantern_corridor",
+      "text": "Inside a mountain temple corridor lit by blue-white lanterns, they walk toward the camera through thin mist. Reflections shimmer on polished stone, jewelry moves subtly, and their faces stay calm but determined."
+    },
+    {
+      "id": "rain_closeup",
+      "text": "A close rain-soaked portrait: fine droplets gather on their hair and robes while the camera drifts gently from the fairy to the sword immortal. Their expressions are serious, human, and understated, not posed like a poster."
+    },
+    {
+      "id": "petal_slow_motion",
+      "text": "Petals swirl around them in slow, natural motion as the sword immortal lowers his blade and the fairy lets the spell fade. The camera circles slowly, maintaining consistent face identity and graceful robe physics."
+    },
+    {
+      "id": "temple_steps",
+      "text": "They ascend ancient temple steps together, the fairy slightly ahead and the sword immortal watching the upper gate. The camera follows from behind at waist height, showing layered robes, sword hilt, hair, and misty architecture."
+    },
+    {
+      "id": "final_silence",
+      "text": "At sunset on the cliff edge, they stand close but not touching, looking across a sea of clouds. Warm gold light replaces the cold blue palette, their posture relaxed after tension, ending on a calm cinematic tableau with gentle motion."
+    }
+  ]
+}

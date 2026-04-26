@@ -42,6 +42,7 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `config/xianxia_sword_fairy_photoreal_ref_4k_story.json`: premium continuous 4K override for the sword immortal + celestial fairy variant at `3840x2176`
 - `config/naruto_379_vid2vid_4k_3min.json`: native 4K Naruto-379 vid2vid config for the first 180 seconds
 - `config/hunyuan_i2v_smoke_test.json`: HunyuanVideo-1.5 I2V smoke-test config using the fairy reference image
+- `config/hunyuan_i2v_12h_longrun.json`: HunyuanVideo-1.5 12-hour batch config that loops over formal I2V prompts until the time budget is nearly used
 - `refs/README.md`: where to place the dual-character reference image for the reference-driven run
 - `refs/naruto_379/README.md`: generated workspace for the Naruto vid2vid pipeline
 - `storyboards/xianxia_fox_sword_5min_script.md`: readable version of the same story
@@ -59,9 +60,11 @@ It uses the upstream [`Lightricks/LTX-2`](https://github.com/Lightricks/LTX-2) r
 - `scripts/run_vid2vid_slurm_array.sh`: prepares the Naruto workspace and submits the Slurm array
 - `scripts/bootstrap_hunyuan_hpc.sh`: clones official HunyuanVideo-1.5, creates the conda env, and downloads smoke-test models
 - `scripts/run_hunyuan_i2v_smoke.py`: validates config and calls official Hunyuan `generate.py`
+- `scripts/run_hunyuan_i2v_batch.py`: runs repeated Hunyuan I2V clips with resume support and time-budget stopping
 - `slurm/run_story_movie_uconn.slurm`: UConn Storrs batch job
 - `slurm/run_naruto_vid2vid_chunk_uconn.slurm`: UConn Storrs Slurm array worker for Naruto vid2vid chunks
 - `slurm/run_hunyuan_i2v_smoke_uconn.slurm`: UConn Storrs single-A100 Hunyuan smoke test
+- `slurm/run_hunyuan_i2v_12h_uconn.slurm`: UConn Storrs single-A100 Hunyuan 12-hour long-run batch
 
 ## HPC Setup
 
@@ -286,6 +289,59 @@ Expected outputs:
 - `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke_before_sr.mp4`
 - `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke_config.json`
 - `outputs/hunyuan_i2v_smoke/hunyuan_i2v_smoke_command.sh`
+
+### Hunyuan 12-Hour Long Run
+
+This is the non-smoke-test path. It does not try to create one continuous 12-hour movie. It keeps the A100 busy by generating independent high-quality I2V clips until the configured time budget is nearly exhausted, then exits cleanly before Slurm kills the job.
+
+One-command setup plus submit:
+
+```bash
+cd ~/ltx23pro-story-movie
+git pull --ff-only origin main
+HF_TOKEN=YOUR_HF_TOKEN bash scripts/bootstrap_hunyuan_hpc.sh --longrun --submit
+```
+
+If your group requires a PI account:
+
+```bash
+cd ~/ltx23pro-story-movie
+HF_TOKEN=YOUR_HF_TOKEN bash scripts/bootstrap_hunyuan_hpc.sh --longrun --submit --account YOUR_PI_ACCOUNT
+```
+
+If Hunyuan is already bootstrapped and you only want to submit:
+
+```bash
+cd ~/ltx23pro-story-movie
+CONFIG_JSON="$HOME/ltx23pro-story-movie/config/hunyuan_i2v_12h_longrun.json" sbatch slurm/run_hunyuan_i2v_12h_uconn.slurm
+```
+
+The long-run config currently uses:
+
+- `--time=12:00:00` on `general-gpu`
+- `--constraint=a100,epyc64`
+- one A100 GPU
+- official `480p_i2v_step_distilled`
+- 12 inference steps
+- 121 frames per clip
+- official 720p SR enabled
+- stop target: `41400` seconds, leaving a `1800` second safety buffer
+- output root: `outputs/hunyuan_i2v_12h_longrun`
+
+Monitor:
+
+```bash
+squeue -u "$USER"
+tail -f "$(ls -t ~/ltx23pro-story-movie/logs/hunyuan-12h-*.err | head -n 1)"
+tail -f "$(ls -t ~/ltx23pro-story-movie/logs/hunyuan-12h-*.out | head -n 1)"
+```
+
+Outputs:
+
+- `outputs/hunyuan_i2v_12h_longrun/*.mp4`
+- `outputs/hunyuan_i2v_12h_longrun/*_before_sr.mp4`
+- `outputs/hunyuan_i2v_12h_longrun/batch_manifest.json`
+- `outputs/hunyuan_i2v_12h_longrun/commands/*.sh`
 
 ## Naruto-379 Native 4K Vid2Vid
 

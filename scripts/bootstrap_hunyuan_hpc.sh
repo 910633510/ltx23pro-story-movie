@@ -12,11 +12,18 @@ PI_ACCOUNT="${PI_ACCOUNT:-}"
 SUBMIT_JOB=false
 FULL_DOWNLOAD=false
 SKIP_DOWNLOAD=false
+DRY_RUN_SCRIPT="$PROJECT_ROOT/scripts/run_hunyuan_i2v_smoke.py"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --submit)
       SUBMIT_JOB=true
+      shift
+      ;;
+    --longrun)
+      CONFIG_JSON="$PROJECT_ROOT/config/hunyuan_i2v_12h_longrun.json"
+      SLURM_FILE="$PROJECT_ROOT/slurm/run_hunyuan_i2v_12h_uconn.slurm"
+      DRY_RUN_SCRIPT="$PROJECT_ROOT/scripts/run_hunyuan_i2v_batch.py"
       shift
       ;;
     --account)
@@ -114,7 +121,7 @@ EOF
   fi
 fi
 
-python "$PROJECT_ROOT/scripts/run_hunyuan_i2v_smoke.py" --config "$CONFIG_JSON" --dry-run
+python "$DRY_RUN_SCRIPT" --config "$CONFIG_JSON" --dry-run
 
 if $SUBMIT_JOB; then
   sbatch_args=()
